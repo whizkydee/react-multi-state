@@ -34,9 +34,10 @@ The function takes in an object of initial state and returns an array containing
 three elements – `state`, `setState` and `setters`:
 
 - _state_, which contains the current state of the component.
-- _setState_, which is an action dispatcher that takes in an object of new
-  state.
-- _setters_, which contains `dispatchAction` functions for each state property.
+- _setState_, which is a multi-action dispatcher that takes in a new state
+  object.
+- _setters_, which contains composed `dispatchAction` functions for each state
+  property.
 
 Here is a simple example:
 
@@ -72,8 +73,8 @@ export default function Users() {
 ## 👀 Comparison with `React.useState` (examples)
 
 With `React.useState`, you'd have to call `useState` and the individual
-dispatcher functions multiple times which can get messy real quick and hard to
-scale as the complexity of your component increases. For example:
+dispatcher functions multiple times which is hard to scale and can get messy
+real quick as the complexity of your component increases. For example:
 
 ```jsx
 import React, { useState, useEffect } from 'react'
@@ -135,7 +136,7 @@ console.log(setState, setters)
 If you prefer dedicated dispatcher functions instead, `useMultiState` supports
 that too. Each time you add a property to the state object, a new setter based
 on the property name is composed and attached to the `setters` object. So if you
-love destructuring, you can easily create variables for your state and setters
+like to destructure, you can easily create variables for your state and setters
 without worrying about defining them in any particular order, contrary to
 `React.useState`. For instance:
 
