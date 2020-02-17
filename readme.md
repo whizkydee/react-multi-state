@@ -87,8 +87,8 @@ export default function Users() {
   useEffect(() => {
     ;(async function() {
       const usersData = await getUsers()
-      state.users = usersData
-      state.isFetched = true
+      setUsers(usersData)
+      setIsFetched(true)
     })()
   }, [])
 }
