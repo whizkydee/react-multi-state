@@ -30,14 +30,6 @@ describe('useMultiState assertions', () => {
     expect(Object.keys(setters).length).toBe(2)
   })
 
-  it('truly updates the values of items in the state object via `setState`', () => {
-    const { getByTestId } = mockComponent()
-
-    fireEvent.change(getByTestId('input'), { target: { value: 'Jude' } })
-    expect(getByTestId('input').value).toBe('Jude')
-    expect(getByTestId('currentName').textContent).toEqual('Jude')
-  })
-
   it('truly updates the values of items in the state object', () => {
     const { getByTestId } = mockComponent()
 
@@ -46,6 +38,14 @@ describe('useMultiState assertions', () => {
 
     fireEvent.click(getByTestId('btn'))
     expect(getByTestId('text').textContent).toEqual('2')
+  })
+
+  it('truly updates the values of items in the state object via setState', () => {
+    const { getByTestId } = mockComponent()
+
+    fireEvent.change(getByTestId('input'), { target: { value: 'Jude' } })
+    expect(getByTestId('input').value).toBe('Jude')
+    expect(getByTestId('currentName').textContent).toEqual('Jude')
   })
 })
 
