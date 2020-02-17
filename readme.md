@@ -105,34 +105,43 @@ const [{ firstName, lastName }, setState, setters] = useMultiState({
 
 function Form() {
   return (
-    <form
-      onSubmit={event => {
-        const { elements } = event.target
-        setState({
-          firstName: elements.firstName,
-          lastName: elements.lastName,
-        })
-      }}
-    >
-      <input type="text" name="firstName" />
-      <input type="text" name="lastName" />
-      <button type="submit">Submit</button>
-    </form>
+    <>
+      <form
+        onSubmit={event => {
+          const { elements } = event.target
+          setState({
+            firstName: elements.firstName,
+            lastName: elements.lastName,
+          })
+        }}
+      >
+        <input type="text" name="firstName" />
+        <input type="text" name="lastName" />
+        <button type="submit">Submit</button>
+      </form>
+
+      <h2>
+        My full name is {firstName} {lastName}
+      </h2>
+    </>
   )
 }
 console.log(setState, setters)
 //=> { setState: 𝑓 }, { setFirstName: 𝑓, setLastName: 𝑓 }
 ```
 
-If you prefer dedicated dispatcher functions instead, you can do that. Each time
-you add a property to the state object, a new setter based on the property name
-is composed and attached to the `setters` object. So if you love destructuring,
-you can easily create variables for your state without worrying about defining
-them in any particular order, contrary to `React.useState`
+## 💡 More examples
+
+If you prefer dedicated dispatcher functions instead, `useMultiState` supports
+that too. Each time you add a property to the state object, a new setter based
+on the property name is composed and attached to the `setters` object. So if you
+love destructuring, you can easily create variables for your state and setters
+without worrying about defining them in any particular order, contrary to
+`React.useState`. For instance:
 
 ```jsx
 const [{ title, lesson }, , { setTitle, setLesson }] = useMultiState({
-  title: '',
+  title: 'Unicorns',
   lesson: {},
   assignments: null,
   archives: [],
@@ -143,9 +152,11 @@ function Title() {
   const updateTitle = title => setTitle('Title: ' + title)
   return <h1>{title}</h1>
 }
-console.log(state, setters)
-//=> { assignments, ... }, { setAssignments: 𝑓, ... }
+console.log(title, setLesson)
+//=> "Unicorns", 𝑓 setLesson()
 ```
+
+**Notice how the second element (`setState`) is ommitted in the above example.**
 
 Better still, you can consume the properties directly from the state and setters
 object, like so:
