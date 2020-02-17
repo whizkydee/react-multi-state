@@ -1,0 +1,41 @@
+{
+  "name": "react-multi-state",
+  "version": "1.0.0",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "description": "Declarative, simplified way to handle complex state with React hooks.",
+  "main": "dist/index.es.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "scripts": {
+    "flush": "del dist",
+    "build": "yarn flush && rollup -c && bundlesize",
+    "test": "jest"
+  },
+  "bundlesize": [
+    {
+      "path": "dist/*.js"
+    }
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.7.0",
+    "@testing-library/react": "^9.4.0",
+    "babel-jest": "^24.9.0",
+    "bundlesize": "^0.18.0",
+    "del-cli": "^3.0.0",
+    "jest": "^24.9.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "rollup": "^1.25.2",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-terser": "^5.1.2"
+  },
+  "peerDependencies": {
+    "react": ">= 16.8.0"
+  }
+}
