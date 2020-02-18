@@ -99,12 +99,15 @@ Meanwhile, with `useMultiState`, all you need is a state object, and you can
 update as many properties as you want at once like:
 
 ```jsx
-const [{ firstName, lastName }, setState, setters] = useMultiState({
-  firstName: '',
-  lastName: '',
-})
-
 function Form() {
+  const [{ firstName, lastName }, setState, setters] = useMultiState({
+    firstName: '',
+    lastName: '',
+  })
+
+  console.log(setState, setters)
+  //=> { setState: 𝑓 }, { setFirstName: 𝑓, setLastName: 𝑓 }
+
   return (
     <>
       <form
@@ -127,8 +130,6 @@ function Form() {
     </>
   )
 }
-console.log(setState, setters)
-//=> { setState: 𝑓 }, { setFirstName: 𝑓, setLastName: 𝑓 }
 ```
 
 ## 💡 More examples
@@ -141,20 +142,21 @@ without worrying about defining them in any particular order, contrary to
 `React.useState`. For instance:
 
 ```jsx
-const [{ title, lesson }, , { setTitle, setLesson }] = useMultiState({
-  title: 'Unicorns',
-  lesson: {},
-  assignments: null,
-  archives: [],
-  showModal: false,
-})
-
 function Title() {
+  const [{ title, lesson }, , { setTitle, setLesson }] = useMultiState({
+    title: 'Unicorns',
+    lesson: {},
+    assignments: null,
+    archives: [],
+    showModal: false,
+  })
+
   const updateTitle = title => setTitle('Title: ' + title)
+  console.log(title, setLesson)
+  //=> "Unicorns", 𝑓 setLesson()
+
   return <h1>{title}</h1>
 }
-console.log(title, setLesson)
-//=> "Unicorns", 𝑓 setLesson()
 ```
 
 **Notice how the second element (`setState`) is ommitted in the above example.**
@@ -163,43 +165,44 @@ Better still, you can consume the properties directly from the state and setters
 object, like so:
 
 ```jsx
-const [state, , setters] = useMultiState({
-  title: '',
-  lesson: {},
-  assignments: null,
-  archives: [],
-  showModal: false,
-})
-
 function Title() {
+  const [state, , setters] = useMultiState({
+    title: '',
+    lesson: {},
+    assignments: null,
+    archives: [],
+    showModal: false,
+  })
+
   const updateTitle = title => setters.setTitle('Title: ' + title)
+  console.log(state, setters)
+  //=> { title, ... }, { setTitle: 𝑓, ... }
+
   return <h1>{state.title}</h1>
 }
-console.log(state, setters)
-//=> { title, ... }, { setTitle: 𝑓, ... }
 ```
 
 Or... destructure some properties and accumulate the rest into _state_ and
 _setters_ objects:
 
 ```jsx
-const [
-  { title, lesson, ...state },
-  setState,
-  { setTitle, ...setters },
-] = useMultiState({
-  title: '',
-  lesson: {},
-  assignments: null,
-  archives: [],
-  showModal: false,
-})
-
 function Title() {
+  const [
+    { title, lesson, ...state },
+    setState,
+    { setTitle, ...setters },
+  ] = useMultiState({
+    title: '',
+    lesson: {},
+    assignments: null,
+    archives: [],
+    showModal: false,
+  })
+  console.log(state, setters)
+  //=> { assignments, ... }, { setAssignments: 𝑓, ... }
+
   return <h1>{title}</h1>
 }
-console.log(state, setters)
-//=> { assignments, ... }, { setAssignments: 𝑓, ... }
 ```
 
 ✨
