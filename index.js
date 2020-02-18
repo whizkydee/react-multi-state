@@ -18,9 +18,9 @@ export default function useMultiState(initialState) {
   return [
     state,
     newState => {
-      Object.keys(newState).forEach(prop =>
+      for (const prop in newState) {
         internalDispatchers[prop](newState[prop])
-      )
+      }
     },
     setters,
   ]
