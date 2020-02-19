@@ -43,9 +43,13 @@ describe('useMultiState assertions', () => {
   it('truly updates the values of items in the state object via setState', () => {
     const { getByTestId } = mockComponent()
 
-    fireEvent.change(getByTestId('input'), { target: { value: 'Jude' } })
+    fireEvent.change(getByTestId('input'), { target: { value: 'Jude' } }) // uses `setState`
     expect(getByTestId('input').value).toBe('Jude')
     expect(getByTestId('currentName').textContent).toEqual('Jude')
+
+    fireEvent.change(getByTestId('input'), { target: { value: 'Chris' } })
+    expect(getByTestId('input').value).toBe('Chris')
+    expect(getByTestId('currentName').textContent).toEqual('Chris')
   })
 })
 
