@@ -6,7 +6,7 @@
 
 ## ✨ Features
 
-- 📦 ~307b (gzipped)
+- 📦 ~286b (gzipped)
 - 🔥 Easy to scale
 - 🙅‍♂️ Zero dependencies
 - ✂️ Super-flexible API
