@@ -1,6 +1,6 @@
 {
   "name": "react-multi-state",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "scripts": {
     "flush": "del dist",
     "build": "yarn flush && rollup -c && bundlesize",
