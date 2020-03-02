@@ -22,12 +22,12 @@ describe('useMultiState assertions', () => {
 
   it('contains the right amount of properties in the state object', () => {
     const { state } = mockComponent()
-    expect(Object.keys(state).length).toBe(2)
+    expect(Object.keys(state)).toHaveLength(2)
   })
 
   it('contains the right amount of properties in the setters object', () => {
     const { setters } = mockComponent()
-    expect(Object.keys(setters).length).toBe(2)
+    expect(Object.keys(setters)).toHaveLength(2)
   })
 
   it('truly updates the values of items in the state object', () => {
@@ -69,7 +69,7 @@ function mockComponent() {
     return (
       <div>
         <p data-testid="text">{count}</p>
-        <button data-testid="btn" onClick={() => setCount(count + 1)}>
+        <button data-testid="btn" onClick={() => setCount(c => c + 1)}>
           Update count
         </button>
 

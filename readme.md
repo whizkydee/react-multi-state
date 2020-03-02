@@ -1,8 +1,8 @@
 ## react-multi-state
 
-🦍Declarative, simplified way to handle complex state with React hooks.
+🦍Declarative, simplified way to handle complex local state with hooks.
 
-<!-- useState, but simplified for complex states in React apps. -->
+<!-- useState, but simplified for complex local states in React apps. -->
 
 ## ✨ Features
 
@@ -99,6 +99,8 @@ Meanwhile, with `useMultiState`, all you need is a state object, and you can
 update as many properties as you want at once like:
 
 ```jsx
+import { Fragment } from 'react'
+
 function Form() {
   const [{ firstName, lastName }, setState, setters] = useMultiState({
     firstName: '',
@@ -109,7 +111,7 @@ function Form() {
   //=> { setState: 𝑓 }, { setFirstName: 𝑓, setLastName: 𝑓 }
 
   return (
-    <>
+    <Fragment>
       <form
         onSubmit={event => {
           const { elements } = event.target
@@ -127,7 +129,7 @@ function Form() {
       <h2>
         My full name is {firstName} {lastName}
       </h2>
-    </>
+    </Fragment>
   )
 }
 ```
@@ -159,7 +161,7 @@ function Title() {
 }
 ```
 
-**Notice how the second element (`setState`) is ommitted in the above example.**
+**Notice how the second element (`setState`) is omitted in the above example.**
 
 Better still, you can consume the properties directly from the state and setters
 object, like so:

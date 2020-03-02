@@ -1,7 +1,18 @@
 {
   "name": "react-multi-state",
-  "version": "1.0.2",
+  "version": "1.0.3",
+  "scripts": {
+    "flush": "del dist",
+    "build": "yarn flush && rollup -c && bundlesize",
+    "test": "jest"
+  },
   "license": "MIT",
+  "repository": "whizkydee/react-multi-state",
+  "description": "Declarative, simplified way to handle complex local state with hooks.",
+  "main": "dist/index.cjs.js",
+  "umd:main": "dist/index.umd.js",
+  "jsnext:main": "dist/index.es.js",
+  "module": "dist/index.es.js",
   "files": [
     "dist"
   ],
@@ -15,18 +26,9 @@
     "use states",
     "multi state"
   ],
-  "description": "Declarative, simplified way to handle complex state with React hooks.",
-  "main": "dist/index.es.js",
-  "module": "dist/index.es.js",
-  "jsnext:main": "dist/index.es.js",
-  "scripts": {
-    "flush": "del dist",
-    "build": "yarn flush && rollup -c && bundlesize",
-    "test": "jest"
-  },
   "bundlesize": [
     {
-      "path": "dist/*.js"
+      "path": "dist/index.*.js"
     }
   ],
   "devDependencies": {

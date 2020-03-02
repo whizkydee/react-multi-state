@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function useMultiState(initialState) {
-  const [state, setters, internalDispatchers] = [{}, {}, []]
+  const [state, internalDispatchers, setters] = [{}, {}, {}]
 
   for (const prop in initialState) {
     const value = initialState[prop]
