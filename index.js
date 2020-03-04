@@ -11,29 +11,32 @@ export default function useMultiState(initialState) {
     )
 
     const capitalizedPropName = capitalize(prop)
+    const capitalizedPropNameWithoutS = removeEndingS(capitalizedPropName)
 
     state[prop] = internalValue
     internalDispatchers[prop] = dispatchAction
     setters['set' + capitalizedPropName] = dispatchAction
-      
-    
+
     // If the prop is an array, we add helpers to immutably update the array
     if (Array.isArray(value)) {
-      setters['add' + removeEndingS(capitalizedPropName)] = (...newItems) => {
-        if (newItems.length === 0) return; // If no args are supplied, do nothing
-        dispatchAction([...(state[prop]), ...newItems])
+      setters['add' + capitalizedPropNameWithoutS] = (...newItems) => {
+        if (newItems.length === 0) return // If no args are supplied, do nothing
+        dispatchAction([...state[prop], ...newItems])
       }
 
-      setters['remove' + removeEndingS(capitalizedPropName)] = (indexToRemove) => {
-        if (state[prop].length < indexToRemove) return; // If idx isn't in array, do nothing
+      setters['remove' + capitalizedPropNameWithoutS] = indexToRemove => {
+        if (state[prop].length < indexToRemove) return // If idx isn't in array, do nothing
 
-        dispatchAction([...state[prop].slice(0, indexToRemove), ...state[prop].slice(indexToRemove + 1)]);
+        dispatchAction([
+          ...state[prop].slice(0, indexToRemove),
+          ...state[prop].slice(indexToRemove + 1),
+        ])
       }
 
-      setters['replace' + removeEndingS(capitalizedPropName)] = (index, newItem) => {
-        const newState = [...state[prop]];
-        newState[index] = newItem;
-        dispatchAction(newState);
+      setters['replace' + capitalizedPropNameWithoutS] = (index, newItem) => {
+        const newState = [...state[prop]]
+        newState[index] = newItem
+        dispatchAction(newState)
       }
     }
   }
@@ -63,7 +66,7 @@ function capitalize(str) {
 }
 
 function removeEndingS(str) {
-  if (!str.endsWith("s")) return;
+  if (!str.endsWith('s')) return
 
-  return str.slice(0, str.length - 1);
+  return str.slice(0, str.length - 1)
 }
