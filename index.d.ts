@@ -1,0 +1,1 @@
+export default function useMultiState<T>(initialState: T): [T, (newState: Partial<T>) => void, { [key: string]: Function }];

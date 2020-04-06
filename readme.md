@@ -207,6 +207,60 @@ function Title() {
 }
 ```
 
+**Using Arrays**
+
+To make working with arrays in an immutable fashion inside the state easier, the following helper functions are available in the setters object:
+
+- add
+- remove
+- replace
+
+These helpers are added, if the property in your state is an array. If your property ends in an 's', it is ommited for these helpers. So if you have a property called items, your helper functions will be **addHelper(newItem)**, **removeHelper(index)** and **replaceHelper(index, newItem)**
+
+```jsx
+  function TodoList() {
+    const [state, setState, setters] = useMultiState({
+      todos: [],
+    })
+    const { todos } = state
+    const { setTodos, addTodo, replaceTodo, removeTodo } = setters
+
+    return (
+      <div>
+        <h1>Todo List</h1>
+        <div>
+          <ul class="todos-list">
+            {todos.map((t, idx) => (
+              <li key={idx}>{t}</li>
+            ))}
+          </ul>
+          <button
+            class="btn-add-todos"
+            onClick={() => addTodo('Simple-Todo')}
+          >
+            Update Todo
+          </button>
+          <button class="btn-reset-todos" onClick={() => setTodos([])}>
+            Reset Todos
+          </button>
+          <button
+            class="btn-replace-first-todo"
+            onClick={() => replaceTodo(0, 'Replaced-Todo')}
+          >
+            Update First Todo
+          </button>
+          <button
+            class="btn-remove-first-todo"
+            onClick={() => removeTodo(0)}
+          >
+            Remove First Todo
+          </button>
+        </div>
+      </div>
+    )
+  }
+```
+
 ✨
 
 ## 🤝 License
