@@ -3,10 +3,11 @@
   "version": "1.0.3",
   "scripts": {
     "flush": "del dist",
-    "build": "yarn flush && rollup -c && bundlesize",
-    "test": "jest"
+    "test": "jest && tsd",
+    "build": "yarn flush && rollup -c && bundlesize"
   },
   "license": "MIT",
+  "types": "index.d.ts",
   "repository": "whizkydee/react-multi-state",
   "description": "Declarative, simplified way to handle complex local state with hooks.",
   "main": "dist/index.cjs.js",
@@ -14,7 +15,8 @@
   "jsnext:main": "dist/index.es.js",
   "module": "dist/index.es.js",
   "files": [
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "keywords": [
     "react",
@@ -45,7 +47,8 @@
     "react-dom": "^16.12.0",
     "rollup": "^1.25.2",
     "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-terser": "^5.1.2"
+    "rollup-plugin-terser": "^5.1.2",
+    "tsd": "^0.11.0"
   },
   "peerDependencies": {
     "react": ">= 16.8.0"

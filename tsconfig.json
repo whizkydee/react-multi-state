@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "lib": ["DOM"],
+    "target": "es5",
+    "jsx": "react",
+    "downlevelIteration": true,
+    "module": "commonjs",
+    "outDir": "dist",
+    "strict": true,
+    "rootDir": ".",
+    "declaration": true,
+    "esModuleInterop": true
+  },
+  "tsd": {
+    "compilerOptions": {
+      "strict": false
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
