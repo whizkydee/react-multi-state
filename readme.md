@@ -99,9 +99,11 @@ Meanwhile, with `useMultiState`, all you need is a state object, and you can
 update as many properties as you want at once like:
 
 ```jsx
-import { Fragment } from 'react'
+import { Fragment, useRef } from 'react'
 
 function Form() {
+  const firstNameRef = useRef(null)
+  const lastNameRef = useRef(null)
   const [{ firstName, lastName }, setState, setters] = useMultiState({
     firstName: '',
     lastName: '',
@@ -113,16 +115,15 @@ function Form() {
   return (
     <Fragment>
       <form
-        onSubmit={event => {
-          const { elements } = event.target
+        onSubmit={() => {
           setState({
-            firstName: elements.firstName,
-            lastName: elements.lastName,
+            firstName: firstNameRef.current.value,
+            lastName: lastNameRef.current.value,
           })
         }}
       >
-        <input type="text" name="firstName" />
-        <input type="text" name="lastName" />
+        <input type="text" ref={firstNameRef} value={firstName} />
+        <input type="text" ref={lastNameRef} value={lastName} />
         <button type="submit">Submit</button>
       </form>
 
@@ -192,7 +193,7 @@ function Title() {
   const [
     { title, lesson, ...state },
     setState,
-    { setTitle, ...setters },
+    { setTitle, setLesson, ...setters },
   ] = useMultiState({
     title: '',
     lesson: {},
