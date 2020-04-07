@@ -12,10 +12,13 @@ import { Dispatch, SetStateAction } from 'react'
  *
  * @see https://github.com/whizkydee/react-multi-state#-usage
  */
-export default function useMultiState<T extends { [key: string]: any }>(
+export default function useMultiState<
+  T extends { [key: string]: any },
+  U extends Partial<T>
+>(
   initialState: T
 ): [
   T,
-  (newState: Partial<T>) => void,
+  ((newState: (prevState: T) => U) => void) & ((newState: U) => void),
   { [key: string]: Dispatch<SetStateAction<unknown>> }
 ]

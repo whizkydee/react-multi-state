@@ -17,9 +17,13 @@ export default function useMultiState(initialState) {
 
   return [
     state,
-    newState => {
-      for (const prop in newState) {
-        internalDispatchers[prop](newState[prop])
+    newStateOrCb => {
+      if (typeof newStateOrCb == 'function') {
+        // pass state to the updater function as prevState
+        newStateOrCb = newStateOrCb.call(this, state)
+      }
+      for (const prop in newStateOrCb) {
+        internalDispatchers[prop](newStateOrCb[prop])
       }
     },
     setters,
@@ -28,7 +32,7 @@ export default function useMultiState(initialState) {
 
 function once(fn) {
   let called = false
-  return function(...args) {
+  return function (...args) {
     if (called) return
     called = true
     return fn.apply(this, args)

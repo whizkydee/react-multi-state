@@ -17,6 +17,19 @@ export function TestComponent() {
     expectError(setState({ age: '20' }))
     expectType<void>(setState({ age: 20 }))
 
+    // Test that the value of the `prevState` parameter in `setState`
+    // has the same signature as that of `state`.
+    setState(prevState => {
+      expectType<{
+        age: number
+        name: string
+        interests: string[]
+      }>(prevState)
+      return {
+        age: prevState.age + 2,
+      }
+    })
+
     expectType<void>(setters.setName('Olaolu'))
 
     // TypeScript doesn't have an API that allows us dynamically augment property names

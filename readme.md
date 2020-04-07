@@ -2,8 +2,6 @@
 
 🦍Declarative, simplified way to handle complex local state with hooks.
 
-<!-- useState, but simplified for complex local states in React apps. -->
-
 ## ✨ Features
 
 - 📦 ~286b (gzipped)
@@ -66,6 +64,39 @@ export default function Users() {
         <li class="user">{name}</li>
       ))}
     </ul>
+  )
+}
+```
+
+## ↩ Accessing previous state
+
+Currently, there are two ways to access previous state values before update, and
+they do not require spreading the old state object at all. See the example
+below.
+
+```jsx
+import { Fragment } from 'react'
+function Counter() {
+  const [state, setState, { setCount }] = useMultiState({
+    count: 0,
+    secondCount: 10,
+  })
+
+  return (
+    <Fragment>
+      <button onClick={() => setCount(c => c + 1)}>Update count</button>
+
+      <button
+        onClick={() => {
+          setState(prevState => ({
+            secondCount: prevState.secondCount + 10,
+            // use as many `prevState` property values as you wish
+          }))
+        }}
+      >
+        Update second count
+      </button>
+    </Fragment>
   )
 }
 ```
