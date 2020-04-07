@@ -8,17 +8,17 @@ import { Dispatch, SetStateAction } from 'react'
  *
  * `setState` is a multi-action dispatcher function that takes in a new state object.
  *
- * `setters` is an array that contains composed dispatchAction functions for each state property.
+ * `setters` is an object that contains composed dispatchAction functions for each state property.
  *
  * @see https://github.com/whizkydee/react-multi-state#-usage
  */
 export default function useMultiState<
   T extends { [key: string]: any },
-  U extends T[keyof T]
+  U extends Partial<T>
 >(
   initialState: T
 ): [
   T,
-  (newState: Partial<T>) => void,
-  { [key: string]: Dispatch<SetStateAction<U>> }
+  ((newState: (prevState: T) => U) => void) & ((newState: U) => void),
+  { [key: string]: Dispatch<SetStateAction<unknown>> }
 ]

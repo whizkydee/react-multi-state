@@ -6,7 +6,7 @@ export function TestComponent() {
   const [state, setState, setters] = useMultiState({
     age: 25,
     name: 'Chris',
-    interests: ['Biking', 'Sky diving'],
+    interests: ['Biking', 'Skydiving'],
   })
 
   expectType<number>(state.age)
@@ -17,20 +17,27 @@ export function TestComponent() {
     expectError(setState({ age: '20' }))
     expectType<void>(setState({ age: 20 }))
 
+    // Test that the value of the `prevState` parameter in `setState`
+    // has the same signature as that of `state`.
+    setState(prevState => {
+      expectType<{
+        age: number
+        name: string
+        interests: string[]
+      }>(prevState)
+      return {
+        age: prevState.age + 2,
+      }
+    })
+
     expectType<void>(setters.setName('Olaolu'))
 
-    // TypeScript doesn't have an API that allows us dynamically augment property names.
-    // See https://github.com/microsoft/TypeScript/issues/12754.
-    //
-    // So, as a half-baked workaround to assert the type of each function in `setters`,
-    // we check the type of the value we pass to each dispatcher function and then assert
-    // that it contains at least one of the property value types specified in the local
-    // `state` object signature...
-    expectType<Dispatch<SetStateAction<string | number | string[]>>>(
-      setters.setName
-    )
-    // ...This is why we expect an error in the next LOC -- because going by our local
-    // `state` signature, none of the property values is an object. Pretty clever, eh?
-    expectError(setters.setAge({ a: 1 }))
-  }, [state.age, state.name, state.interests])
+    // TypeScript doesn't have an API that allows us dynamically augment property names
+    // which is quite unfortunate because we rely on that feature to provide an optimal
+    // TypeScript DX.
+    // See https://github.com/microsoft/TypeScript/issues/12754
+
+    // We expect `unknown` here becuase of https://github.com/whizkydee/react-multi-state/issues/7
+    expectType<Dispatch<SetStateAction<unknown>>>(setters.setName)
+  }, [setState, setters])
 }
