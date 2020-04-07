@@ -6,7 +6,7 @@ export function TestComponent() {
   const [state, setState, setters] = useMultiState({
     age: 25,
     name: 'Chris',
-    interests: ['Biking', 'Sky diving'],
+    interests: ['Biking', 'Skydiving'],
   })
 
   expectType<number>(state.age)
@@ -20,7 +20,7 @@ export function TestComponent() {
     expectType<void>(setters.setName('Olaolu'))
 
     // TypeScript doesn't have an API that allows us dynamically augment property names.
-    // See https://github.com/microsoft/TypeScript/issues/12754.
+    // See https://github.com/microsoft/TypeScript/issues/12754
     //
     // So, as a half-baked workaround to assert the type of each function in `setters`,
     // we check the type of the value we pass to each dispatcher function and then assert
@@ -32,5 +32,5 @@ export function TestComponent() {
     // ...This is why we expect an error in the next LOC -- because going by our local
     // `state` signature, none of the property values is an object. Pretty clever, eh?
     expectError(setters.setAge({ a: 1 }))
-  }, [state.age, state.name, state.interests])
+  }, [setState, setters])
 }

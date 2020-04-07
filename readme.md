@@ -53,12 +53,12 @@ export default function Users() {
   })
 
   useEffect(() => {
-    ;(async function() {
+    ;(async function () {
       const usersData = await getUsers()
       setState({ isFetched: true, users: usersData })
       setCleanupAfter(true)
     })()
-  }, [])
+  }, [setState, setCleanupAfter])
 
   return (
     <ul>
@@ -86,12 +86,12 @@ export default function Users() {
   const [isFetched, setIsFetched] = useState(false)
 
   useEffect(() => {
-    ;(async function() {
+    ;(async function () {
       const usersData = await getUsers()
       setUsers(usersData)
       setIsFetched(true)
     })()
-  }, [])
+  }, [setUsers, setIsFetched])
 }
 ```
 
