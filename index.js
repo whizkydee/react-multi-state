@@ -5,10 +5,7 @@ export default function useMultiState(initialState) {
 
   for (const prop in initialState) {
     const value = initialState[prop]
-    const [internalValue, dispatchAction] = once(React.useState).call(
-      this,
-      value
-    )
+    const [internalValue, dispatchAction] = once(React.useState)(value)
 
     state[prop] = internalValue
     internalDispatchers[prop] = dispatchAction

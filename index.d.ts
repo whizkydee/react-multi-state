@@ -20,5 +20,9 @@ export default function useMultiState<
 ): [
   T,
   ((newState: (prevState: T) => U) => void) & ((newState: U) => void),
-  { [key: string]: Dispatch<SetStateAction<unknown>> }
+  {
+    [P in keyof T as `set${Capitalize<string & P>}`]: Dispatch<
+      SetStateAction<T[P]>
+    >
+  }
 ]

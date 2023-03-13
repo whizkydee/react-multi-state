@@ -32,12 +32,8 @@ export function TestComponent() {
 
     expectType<void>(setters.setName('Olaolu'))
 
-    // TypeScript doesn't have an API that allows us dynamically augment property names
-    // which is quite unfortunate because we rely on that feature to provide an optimal
-    // TypeScript DX.
-    // See https://github.com/microsoft/TypeScript/issues/12754
-
-    // We expect `unknown` here becuase of https://github.com/whizkydee/react-multi-state/issues/7
-    expectType<Dispatch<SetStateAction<unknown>>>(setters.setName)
+    expectType<Dispatch<SetStateAction<number>>>(setters.setAge)
+    expectType<Dispatch<SetStateAction<string>>>(setters.setName)
+    expectType<Dispatch<SetStateAction<string[]>>>(setters.setInterests)
   }, [setState, setters])
 }
